@@ -1,0 +1,6 @@
+@Chitter_HostAddress = http://localhost:5007
+
+GET {{Chitter_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

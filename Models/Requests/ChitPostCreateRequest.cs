@@ -1,5 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 
+/// <summary>
+    /// Requests to make a chitpost
+    /// </summary>
+    /// <author>Ivy N</author>
+
 namespace Chitter.Models.Requests {
 
     public class ChitPostCreateRequest {

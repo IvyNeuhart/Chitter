@@ -1,4 +1,10 @@
 using System.ComponentModel.DataAnnotations;
+
+/// <summary>
+    /// Requests to create user
+    /// </summary>
+    /// <author>Ivy N</author>
+
 namespace Chitter.Models.Requests
 {
     public class UserCreateRequest

@@ -14,7 +14,9 @@ namespace Chitter.Models
         public int ChitPostId {get; set;}
         [JsonIgnore]
         public ChitPost ChitPost {get; set;}
-        public int CommentParentId {get; set;}
+        public int ParentCommentId {get; set;}
+        public List<ChitPostComment> ChitPostComments {get; set;}
+        public List<CommentLike> CommentLikes {get; set;}
         
     }
 }

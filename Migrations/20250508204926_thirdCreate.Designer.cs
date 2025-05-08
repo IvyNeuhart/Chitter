@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Chitter.Migrations
 {
     [DbContext(typeof(ChitterDbContext))]
-    [Migration("20250417233559_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250508204926_thirdCreate")]
+    partial class thirdCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,9 +33,6 @@ namespace Chitter.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("ChitPostId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -47,8 +44,6 @@ namespace Chitter.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ChitPostId");
 
                     b.HasIndex("UserId");
 
@@ -63,30 +58,76 @@ namespace Chitter.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("ChitPostId")
+                    b.Property<int?>("ChitPostCommentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ChitPostId")
                         .HasColumnType("int");
 
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ParentCommentId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("TimeCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("User")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ChitPostCommentId");
 
                     b.HasIndex("ChitPostId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("ChitPostComments");
+                });
+
+            modelBuilder.Entity("Chitter.Models.CommentLike", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ChitPostCommentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChitPostCommentId");
+
+                    b.ToTable("CommentLike");
+                });
+
+            modelBuilder.Entity("Chitter.Models.PostLike", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ChitPostId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChitPostId");
+
+                    b.ToTable("PostLikes");
                 });
 
             modelBuilder.Entity("Chitter.Models.User", b =>
@@ -108,10 +149,6 @@ namespace Chitter.Migrations
 
             modelBuilder.Entity("Chitter.Models.ChitPost", b =>
                 {
-                    b.HasOne("Chitter.Models.ChitPost", null)
-                        .WithMany("ChitPosts")
-                        .HasForeignKey("ChitPostId");
-
                     b.HasOne("Chitter.Models.User", "User")
                         .WithMany("ChitPosts")
                         .HasForeignKey("UserId")
@@ -123,20 +160,57 @@ namespace Chitter.Migrations
 
             modelBuilder.Entity("Chitter.Models.ChitPostComment", b =>
                 {
-                    b.HasOne("Chitter.Models.ChitPost", null)
+                    b.HasOne("Chitter.Models.ChitPostComment", null)
                         .WithMany("ChitPostComments")
-                        .HasForeignKey("ChitPostId");
+                        .HasForeignKey("ChitPostCommentId");
 
-                    b.HasOne("Chitter.Models.User", null)
+                    b.HasOne("Chitter.Models.ChitPost", "ChitPost")
                         .WithMany("ChitPostComments")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("ChitPostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Chitter.Models.User", "User")
+                        .WithMany("ChitPostComments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("ChitPost");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Chitter.Models.CommentLike", b =>
+                {
+                    b.HasOne("Chitter.Models.ChitPostComment", null)
+                        .WithMany("CommentLikes")
+                        .HasForeignKey("ChitPostCommentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Chitter.Models.PostLike", b =>
+                {
+                    b.HasOne("Chitter.Models.ChitPost", null)
+                        .WithMany("PostLikes")
+                        .HasForeignKey("ChitPostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Chitter.Models.ChitPost", b =>
                 {
                     b.Navigation("ChitPostComments");
 
-                    b.Navigation("ChitPosts");
+                    b.Navigation("PostLikes");
+                });
+
+            modelBuilder.Entity("Chitter.Models.ChitPostComment", b =>
+                {
+                    b.Navigation("ChitPostComments");
+
+                    b.Navigation("CommentLikes");
                 });
 
             modelBuilder.Entity("Chitter.Models.User", b =>

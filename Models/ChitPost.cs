@@ -1,6 +1,11 @@
 using System.Text.Json.Serialization;
 using Microsoft.Extensions.ObjectPool;
 
+/// <summary>
+    /// Post info
+    /// </summary>
+    /// <author>Ivy N</author>
+
 namespace Chitter.Models
 {
     public class ChitPost
@@ -13,5 +18,6 @@ namespace Chitter.Models
         public User User {get; set;}
         // Relational Properties
         public List<ChitPostComment> ChitPostComments {get; set;}
+        public List<PostLike> PostLikes {get; set;}
     }
 }

@@ -14,6 +14,9 @@ namespace Chitter.Repositories
         public DbSet<ChitPost> ChitPosts {get; set;}
         public DbSet<ChitPostComment> ChitPostComments {get; set;}
 
+        public DbSet<PostLike> PostLikes {get; set;}
+        public DbSet<CommentLike> CommentLikes {get; set;}
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ChitPostComment>()

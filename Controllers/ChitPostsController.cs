@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Chitter.Repositories;
 using Chitter.Models;
-using Chitter.Migrations;
 using Microsoft.EntityFrameworkCore;
 using Chitter.Models.Requests;
+using Microsoft.Extensions.Configuration.UserSecrets;
 
 
 namespace ChitPostController.Controllers
@@ -33,7 +33,7 @@ namespace ChitPostController.Controllers
         public ChitPost CreateChitPost(ChitPostCreateRequest request) {
             // Map our BookCreateRequest to an actual Book.
             ChitPost chitPostToPost = new ChitPost{
-                ChitPostId = request.ChitPostId,// In an actual app we would generally use a generated ID from a database.
+                //Id = request.ChitPostId,// In an actual app we would generally use a generated ID from a database.
                 Content = request.Content,
                 UserId = request.UserId,
                 TimeCreated = request.TimeCreated,
@@ -50,7 +50,7 @@ namespace ChitPostController.Controllers
         {
             User userToCreate = new User
             {
-                Id = request.Id,
+                //Id = request.Id, unneccessary. Id will be automatically made in database
                 UserName = request.UserName,
             };
             _context.Users.Add(userToCreate);
@@ -60,10 +60,11 @@ namespace ChitPostController.Controllers
         [HttpPost("/create-comment", Name = "Create Comment")]
         public ChitPostComment CreateComment(CommentCreateRequest request) {
             ChitPostComment commentToPost = new ChitPostComment{
-                CommentId = request.CommentId,
+                //Id = request.CommentId,
                 ChitPostId = request.ChitPostId,
                 Content = request.Content,
                 UserId = request.UserId,
+                //User = UserId.User
                 TimeCreated = request.TimeCreated,
             };
             _context.ChitPostComments.Add(commentToPost);

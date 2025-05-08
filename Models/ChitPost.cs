@@ -5,11 +5,11 @@ namespace Chitter.Models
 {
     public class ChitPost
     {
-        public int ChitPostId {get; set;}
+        public int Id {get; set;}
         public string Content {get; set;}
         public DateTime TimeCreated {get; set;}
         public int UserId {get; set;}
-        [JsonIgnore]
+        //[JsonIgnore]
         public User User {get; set;}
         // Relational Properties
         public List<ChitPostComment> ChitPostComments {get; set;}

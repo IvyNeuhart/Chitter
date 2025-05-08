@@ -166,3 +166,4 @@ C:\Users\ivyxt\ivydir\Chitter\obj\Debug\net9.0\ref\Chitter.dll
 C:\Users\ivyxt\ivydir\Chitter\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\ivyxt\ivydir\Chitter\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\ivyxt\ivydir\Chitter\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\ivyxt\ivydir\Chitter\obj\Debug\net9.0\Chitter.sourcelink.json

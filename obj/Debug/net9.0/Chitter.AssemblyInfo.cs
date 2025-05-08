@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Chitter")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+456611ff9c33efc9621395fffe31f5dc5e90da53")]
 [assembly: System.Reflection.AssemblyProductAttribute("Chitter")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Chitter")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
